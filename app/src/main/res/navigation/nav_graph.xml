@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/allUserListFragment">
+
+    <fragment
+        android:id="@+id/allUserListFragment"
+        android:name="com.shaadi.presentation.ui.user.allUser.AllUserListFragment"
+        android:label="AllUserListFragment"
+        tools:layout="@layout/fragment_all_user_list">
+        <action
+            android:id="@+id/action_allUserListFragment_to_acceptedUserListFragment"
+            app:destination="@id/acceptedUserListFragment" />
+        <action
+            android:id="@+id/action_allUserListFragment_to_rejectedUserListFragment"
+            app:destination="@id/rejectedUserListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/acceptedUserListFragment"
+        android:name="com.shaadi.presentation.ui.user.acceptedUser.AcceptedUserListFragment"
+        android:label="AcceptedUserListFragment"
+        tools:layout="@layout/fragment_accepted_user_list" />
+    <fragment
+        android:id="@+id/rejectedUserListFragment"
+        android:name="com.shaadi.presentation.ui.user.rejectedUser.RejectedUserListFragment"
+        android:label="RejectedUserListFragment"
+        tools:layout="@layout/fragment_rejected_user_list" />
+
+
+</navigation>
