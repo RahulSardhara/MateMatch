@@ -11,7 +11,6 @@ import com.shaadi.data.remote.api.NetworkService
 import com.shaadi.data.remote.mapper.toDomain
 import com.shaadi.domain.model.UserData
 import com.shaadi.domain.repository.UserRepository
-import com.shaadi.utils.Constant
 import com.shaadi.utils.Constant.UserListType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
