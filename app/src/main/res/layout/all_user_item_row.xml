@@ -95,7 +95,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="@{user.dob.age + `Years`}"
+                android:text="@{user.dob.age + ` Years`}"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 android:contentDescription="@string/app_name"
@@ -155,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text='@{"Match: " + user.matchScore + "%"}'
+                android:text='@{"Match: " + user.matchScore + " %"}'
                 android:textAllCaps="true"
                 android:textColor="@color/red"
                 android:textSize="12sp"

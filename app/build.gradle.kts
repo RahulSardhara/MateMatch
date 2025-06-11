@@ -1,15 +1,29 @@
-import org.gradle.kotlin.dsl.implementation
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kapt)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.safe.args)
 
 }
 
 android {
+    signingConfigs {
+        create("appSigningConfig") {
+            val signingProps = Properties().also {
+                it.load(file("../signingInfo/SigningInfo.properties").inputStream())
+            }
+
+            storeFile = signingProps["FilePath"]?.let { file(it) }
+            storePassword = signingProps["StorePassword"] as String?
+            keyAlias = signingProps["KeyAlias"] as String?
+            keyPassword = signingProps["KeyPassword"] as String?
+        }
+    }
+
     namespace = "com.shaadi"
     compileSdk = 35
 
@@ -26,6 +40,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("appSigningConfig")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }

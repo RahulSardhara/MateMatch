@@ -6,5 +6,6 @@
     <string name="accepted_users">Accepted Users</string>
     <string name="rejected_users">Rejected Users</string>
     <string name="no_data_found">No data found</string>
+    <string name="accepted">Accepted</string>
 
 </resources>
