@@ -9,9 +9,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.shaadi.R
+import androidx.core.view.isVisible
 
 fun <T> Context.clearTaskAndOpenActivity(it: Class<T>, extras: Bundle.() -> Unit = {}) {
     val intent = Intent(this, it)
@@ -24,8 +24,7 @@ fun ImageView.loadProfileImage(vararg urls: String?) {
     val validUrl = urls.firstOrNull { !it.isNullOrEmpty() }
     Glide.with(this.context)
         .load(validUrl)
-        .placeholder(R.drawable.ic_placeholder)
-        .apply(RequestOptions.circleCropTransform())
+        .placeholder(R.drawable.bg_all_user)
         .into(this)
 }
 
@@ -53,13 +52,14 @@ fun Fragment?.showSnackBar(message: String?) {
     }
 }
 
-fun View.toggleVisibility(): Int = if (visibility == View.VISIBLE) View.GONE else View.VISIBLE
+fun View.toggleVisibility(): Int = if (isVisible) View.GONE else View.VISIBLE
 
 
 fun View?.setVisible(value: Int? = View.VISIBLE) {
     this?.visibility = value ?: View.VISIBLE
 }
 
+/* For future use, if needed
 fun View?.isVisible(): Boolean {
     return this?.visibility == View.VISIBLE
 }
@@ -67,6 +67,7 @@ fun View?.isVisible(): Boolean {
 fun View?.setInVisible(value: Int? = View.INVISIBLE) {
     this?.visibility = value ?: View.INVISIBLE
 }
+*/
 
 fun View?.setGone(value: Int? = View.GONE) {
     this?.visibility = value ?: View.GONE

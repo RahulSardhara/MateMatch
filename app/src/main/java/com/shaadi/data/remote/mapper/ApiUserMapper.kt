@@ -7,6 +7,8 @@ import com.shaadi.domain.model.Login
 import com.shaadi.domain.model.Name
 import com.shaadi.domain.model.Picture
 import com.shaadi.domain.model.UserData
+import com.shaadi.utils.Constant.AGE
+import com.shaadi.utils.Constant.CITY
 import java.util.UUID
 import kotlin.math.abs
 
@@ -68,10 +70,8 @@ fun parseName(rawName: String): Name {
 }
 
 fun calculateMatchScore(age: Int, city: String): Int {
-    val myAge = 28
-    val myCity = "Mumbai"
-    val ageScore = (50 - abs(myAge - age) * 5).coerceAtLeast(0)
-    val cityScore = if (city == myCity) 50 else 0
+    val ageScore = (50 - abs(AGE - age) * 5).coerceAtLeast(0)
+    val cityScore = if (city == CITY) 50 else 0
     return ageScore + cityScore
 }
 

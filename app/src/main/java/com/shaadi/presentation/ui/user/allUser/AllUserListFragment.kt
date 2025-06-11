@@ -22,8 +22,10 @@ import com.shaadi.utils.showSnackBar
 import com.shaadi.utils.showToast
 import com.shaadi.utils.toggleVisibility
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class AllUserListFragment : CoreFragment<FragmentAllUserListBinding>(layoutResId = R.layout.fragment_all_user_list) {
@@ -43,6 +45,7 @@ class AllUserListFragment : CoreFragment<FragmentAllUserListBinding>(layoutResId
             collectUsers()
             observeLoadState()
             observeErrorState()
+            observeProgressState()
             clickListeners()
         }
     }
@@ -84,6 +87,18 @@ class AllUserListFragment : CoreFragment<FragmentAllUserListBinding>(layoutResId
         lifecycleScope.launch {
             userViewModel.allUsersList.collectLatest { pagingData ->
                 userAdapter.submitData(pagingData)
+            }
+        }
+    }
+
+    private fun observeProgressState() {
+        binding?.run {
+            lifecycleScope.launch {
+                uiProgressEvents.collectLatest { event ->
+                    withContext(Dispatchers.Main) {
+                        pbUserList.isVisible = event.first == true
+                    }
+                }
             }
         }
     }
