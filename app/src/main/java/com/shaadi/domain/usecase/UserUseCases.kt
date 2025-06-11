@@ -1,8 +1,7 @@
 package com.shaadi.domain.usecase
 
-import com.shaadi.data.local.entity.UserEntity
 import com.shaadi.data.remote.mapper.toDomain
-import com.shaadi.data.remote.network.DataSate
+import com.shaadi.data.remote.network.DataState
 import com.shaadi.data.remote.network.UIText
 import com.shaadi.domain.model.UserData
 import com.shaadi.domain.repository.UserRepository
@@ -29,16 +28,16 @@ class FetchAllUserListUseCase @Inject constructor(
 class FetchRejectedUserListUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
-    operator fun invoke(): Flow<DataSate<List<UserData>>> = flow {
-        emit(DataSate.Loading(true))
+    operator fun invoke(): Flow<DataState<List<UserData>>> = flow {
+        emit(DataState.Loading(true))
         try {
             val res = userRepository.getUserListByStatus(UserListType.REJECTED.toString())
             val mapped = res.map { it.toDomain() }
-            emit(DataSate.Success(mapped))
+            emit(DataState.Success(mapped))
         } catch (e: Exception) {
-            emit(DataSate.ExceptionError(UIText.DynamicString(e.message.orEmpty()), e))
+            emit(DataState.ExceptionError(UIText.DynamicString(e.message.orEmpty()), e))
         } finally {
-            emit(DataSate.Loading(false))
+            emit(DataState.Loading(false))
         }
     }
 
@@ -47,16 +46,16 @@ class FetchRejectedUserListUseCase @Inject constructor(
 class FetchAcceptedUserListUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
-    operator fun invoke(): Flow<DataSate<List<UserData>>> = flow {
-        emit(DataSate.Loading(true))
+    operator fun invoke(): Flow<DataState<List<UserData>>> = flow {
+        emit(DataState.Loading(true))
         try {
             val res = userRepository.getUserListByStatus(UserListType.ACCEPTED.toString())
             val mapped = res.map { it.toDomain() }
-            emit(DataSate.Success(mapped))
+            emit(DataState.Success(mapped))
         } catch (e: Exception) {
-            emit(DataSate.ExceptionError(UIText.DynamicString(e.message.orEmpty()), e))
+            emit(DataState.ExceptionError(UIText.DynamicString(e.message.orEmpty()), e))
         } finally {
-            emit(DataSate.Loading(false))
+            emit(DataState.Loading(false))
         }
     }
 
@@ -66,15 +65,15 @@ class FetchAcceptedUserListUseCase @Inject constructor(
 class UpdateUserStatusUseCase @Inject constructor(
     private val userRepository: UserRepository
 ) {
-    operator fun invoke(id: String, status: String): Flow<DataSate<Int>> = flow {
-        emit(DataSate.Loading(true))
+    operator fun invoke(id: String, status: String): Flow<DataState<Int>> = flow {
+        emit(DataState.Loading(true))
         try {
             val result: Int = userRepository.updateUserStatus(id, status)
-            emit(DataSate.Success(result))
+            emit(DataState.Success(result))
         } catch (e: Exception) {
-            emit(DataSate.ExceptionError(UIText.DynamicString(e.message.orEmpty()), e))
+            emit(DataState.ExceptionError(UIText.DynamicString(e.message.orEmpty()), e))
         } finally {
-            emit(DataSate.Loading(false))
+            emit(DataState.Loading(false))
         }
     }
 

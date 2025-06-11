@@ -5,12 +5,12 @@ import androidx.annotation.StringRes
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
-sealed class DataSate<T> {
+sealed class DataState<T> {
 
-    data class Loading<T>(val isLoading: Boolean) : DataSate<T>()
-    data class Success<T>(val data: T) : DataSate<T>()
-    data class ResponseError<T>(val code: Int?, val message: UIText, val error: Any?) : DataSate<T>()
-    data class ExceptionError<T>(val message: UIText, val throwable: Throwable?) : DataSate<T>()
+    data class Loading<T>(val isLoading: Boolean) : DataState<T>()
+    data class Success<T>(val data: T) : DataState<T>()
+    data class ResponseError<T>(val code: Int?, val message: UIText, val error: Any?) : DataState<T>()
+    data class ExceptionError<T>(val message: UIText, val throwable: Throwable?) : DataState<T>()
 }
 
 sealed class UIComponent {

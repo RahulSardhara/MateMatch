@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.shaadi.R
-import com.shaadi.data.remote.network.DataSate
+import com.shaadi.data.remote.network.DataState
 import com.shaadi.data.remote.network.UIComponent
 import com.shaadi.data.remote.network.UIText
 import com.shaadi.data.remote.network.uiMessageChannel
@@ -43,8 +43,8 @@ class UserViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 userUseCase.fetchRejectedUserListUseCase().collectLatest { state ->
                     when (state) {
-                        is DataSate.Loading -> uiProgressChannel.send(Pair(state.isLoading, false))
-                        is DataSate.Success -> {
+                        is DataState.Loading -> uiProgressChannel.send(Pair(state.isLoading, false))
+                        is DataState.Success -> {
                             Timber.d("Success---> ${state.data}")
                             val userList = (state.data as? List<UserData>).orEmpty()
                             if (userList.isEmpty()) {
@@ -56,12 +56,12 @@ class UserViewModel @Inject constructor(
                             }
                         }
 
-                        is DataSate.ExceptionError -> {
+                        is DataState.ExceptionError -> {
                             uiProgressChannel.send(Pair(false, false))
                             uiMessageChannel.send(UIComponent.SnackBar(state.message))
                         }
 
-                        is DataSate.ResponseError -> {
+                        is DataState.ResponseError -> {
                             uiProgressChannel.send(Pair(false, false))
                             uiMessageChannel.send(UIComponent.SnackBar(state.message))
                         }
@@ -72,8 +72,8 @@ class UserViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 userUseCase.fetchAcceptedUserListUseCase().collectLatest { state ->
                     when (state) {
-                        is DataSate.Loading -> uiProgressChannel.send(Pair(state.isLoading, false))
-                        is DataSate.Success -> {
+                        is DataState.Loading -> uiProgressChannel.send(Pair(state.isLoading, false))
+                        is DataState.Success -> {
                             Timber.d("Success---> ${state.data}")
                             val userList = (state.data as? List<UserData>).orEmpty()
                             if (userList.isEmpty()) {
@@ -86,12 +86,12 @@ class UserViewModel @Inject constructor(
 
                         }
 
-                        is DataSate.ExceptionError -> {
+                        is DataState.ExceptionError -> {
                             uiProgressChannel.send(Pair(false, false))
                             uiMessageChannel.send(UIComponent.SnackBar(state.message))
                         }
 
-                        is DataSate.ResponseError -> {
+                        is DataState.ResponseError -> {
                             uiProgressChannel.send(Pair(false, false))
                             uiMessageChannel.send(UIComponent.SnackBar(state.message))
                         }
@@ -107,8 +107,8 @@ class UserViewModel @Inject constructor(
         userData?.let {
             userUseCase.updateUserStatusUseCase(it.login?.uuid ?: "", it.status ?: UserListType.UNKNOWN.toString()).onEach { state ->
                 when (state) {
-                    is DataSate.Loading -> uiProgressChannel.send(Pair(state.isLoading, false))
-                    is DataSate.Success -> {
+                    is DataState.Loading -> uiProgressChannel.send(Pair(state.isLoading, false))
+                    is DataState.Success -> {
                         uiProgressChannel.send(Pair(false, false))
                         if (state.data > 0) {
                             uiMessageChannel.send(UIComponent.Toast(UIText.StringResource(R.string.status_updated_successfully)))
@@ -118,12 +118,12 @@ class UserViewModel @Inject constructor(
 
                     }
 
-                    is DataSate.ExceptionError -> {
+                    is DataState.ExceptionError -> {
                         uiProgressChannel.send(Pair(false, false))
                         uiMessageChannel.send(UIComponent.SnackBar(state.message))
                     }
 
-                    is DataSate.ResponseError -> {
+                    is DataState.ResponseError -> {
                         uiProgressChannel.send(Pair(false, false))
                         uiMessageChannel.send(UIComponent.SnackBar(state.message))
                     }
