@@ -130,5 +130,12 @@ if (IS_IMAGE_LEGAL_POLICY) { //IS_IMAGE_LEGAL_POLICY this value is set from util
 - **Local storage using Room
 - **Fallback avatar when profile images are disabled
 
+## 📱 App Screenshot
+![App Screenshot](images/accepted_list.png)
+![App Screenshot](images/declined_list.png)
+![App Screenshot](images/flaky_network.png)
+![App Screenshot](images/user_list.png)
+
+
 ##🙏 License
 This project is open-source and was built as part of an interview assignment for Shaadi.com. It is intended solely for demonstration and evaluation purposes.
