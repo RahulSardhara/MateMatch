@@ -96,6 +96,14 @@ fun calculateMatchScore(age: Int, city: String): Int {
 ## ✅ If Images Are Not Legal (Privacy Policy)
 Profile image hidden (ivProfile.setGone())
 
+## 🧠 Reflection: Time Constraints
+-** If I had more time, I would have implemented Room database encryption to secure sensitive user data and enhance app security, especially given the nature of a matrimonial app.
+-** Improve UI/UX polish, including subtle animations and transitions for a smoother and more engaging user experience.
+-** Analytics and crash reporting integration (e.g., Firebase Analytics and Crashlytics) to monitor app performance and user behavior in real-time.
+-** Advanced match-making algorithm using machine learning or weighted scoring based on preferences like education, lifestyle, and interests.
+-** Dark mode support for better usability and user comfort in low-light environments.
+
+
 Fallback initials shown via tvAvatar
 if (IS_IMAGE_LEGAL_POLICY) { //IS_IMAGE_LEGAL_POLICY this value is set from utils.Constant
     ivProfile.setGone()
