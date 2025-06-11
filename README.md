@@ -33,10 +33,23 @@ This project uses **Clean Architecture** to ensure separation of concerns and ma
 - **Target SDK:** `35`
 
 ## 🧪 Modified & Filtered API Response
-Although the app uses the public API [randomuser.me]((https://randomuser.me/api/?results=10), which does not provide all the fields required in a matrimonial app, we’ve **augmented the response** to include three critical fields:
-| Field      | Source       | Description                                                                 |
-|------------|--------------|-----------------------------------------------------------------------------|
-| `education`| Generated    | Based on age — simulates real-world education levels such as Bachelor's, Master's, Ph.D. |
-| `religion` | Generated    | Randomly assigned from major Indian religions (Hindu, Muslim, Christian, etc.) |
-| `caste`    | Generated    | Randomly assigned based on religion (Brahmin, Rajput, Kayastha, Yadav, Maratha,etc.) |
+Although the app uses the public API [randomuser.me] (https://randomuser.me/api/?results=10), which does not provide all the fields required in a matrimonial app, we’ve **augmented the response** to include three critical | Field      | Source              | Description                                                                 |
+|------------|---------------------|-----------------------------------------------------------------------------|
+| `education`| Generated           | Based on age — simulates real-world education levels like B.Tech, MBA       |
+| `religion` | Randomly generated  | Selected from a fixed list of religions (Hindu, Muslim, Christian, etc.)    |
+| `caste`    | Based on religion   | Generated from a caste list corresponding to the selected religion          |
+
+### ✅ Justification
+
+- **Education**: A critical filtering field in Indian matchmaking platforms.
+- **Religion**: Often used to narrow down matches based on personal/family preferences.
+- **Caste**: A traditional but widely used criterion in Indian matrimonial culture.
+
+These fields are dynamically generated in the domain model mapping logic:
+
+```kotlin
+val religion = generateFakeReligion()
+val caste = generateFakeCaste(religion)
+val education = generateFakeEducation(age)
+
 
