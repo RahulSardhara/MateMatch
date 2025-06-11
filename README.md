@@ -15,17 +15,17 @@ MateMatch is a matrimonial matchmaking app built using **Kotlin**, **MVVM**, and
    
 ## 🔧 Tech Stack
 
-| Layer         | Technology                  |   Purpose                                                            |
-|---------------|-----------------------------|--------------------------------------------------------------------- |
-| Language      | Kotlin                      | Modern, concise, and expressive language that integrates seamlessly with Android and improves code readability and maintainability |
-| UI Toolkit    | Android Views (DataBinding) | Binds data directly to the XML views                                 |
-| Architecture  | MVVM + Clean Architecture   | Combines MVVM (Model-View-ViewModel) for UI state separation and Clean Architecture to enforce layered, testable, and scalable code — separating domain logic, data sources, and UI concerns cleanly |
-| Local DB      | Room                        | Local database for offline access                                    |
-| Remote API    | Retrofit 3 + Gson           | Type-safe network layer with JSON parsing                            |
-| Pagination    | Paging 3                    | Efficient data loading and pagination                                | 
-| DI Framework  | Hilt                        | Dependency injection to reduce boilerplate and improve testability   |
-| Build System  | Gradle (KTS)                | Kotlin-based Gradle scripts provide type safety, auto-completion, and cleaner build configuration |
-| Logging       | Timber                      | Logging for debugging and error tracking                             |
+| Layer         | Technology                  |   Purpose                                                                                                   |
+|---------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Language      | Kotlin                      | Modern, concise, and expressive language that integrates seamlessly with Android and improves code readability and maintainability                                           |
+| UI Toolkit    | Android Views (DataBinding) | Binds data directly to the XML views                                                                                                                                         |
+| Architecture  | MVVM + Clean Architecture   | Combines MVVM for UI state separation and Clean Architecture to enforce layered, testable, and scalable code — separating domain logic, data sources, and UI concerns cleanly|
+| Local DB      | Room                        | Local database for offline access                                                                                                                                            |
+| Remote API    | Retrofit 3 + Gson           | Type-safe network layer with JSON parsing                                                                                                                                    |
+| Pagination    | Paging 3                    | Efficient data loading and pagination                                                                                                                                        |
+| DI Framework  | Hilt                        | Dependency injection to reduce boilerplate and improve testability                                                                                                           |
+| Build System  | Gradle (KTS)                | Kotlin-based Gradle scripts provide type safety, auto-completion, and cleaner build configuration                                                                            |
+| Logging       | Timber                      | Logging for debugging and error tracking                                                                                                                                     |
 
 ## 📁 Clean Architecture Structure
 com.shaadi.matematch/
@@ -48,7 +48,9 @@ This project uses **Clean Architecture** to ensure separation of concerns and ma
 
 
 ## 🧪 Modified & Filtered API Response
-Although the app uses the public API [randomuser.me] (https://randomuser.me/api/?results=10), which does not provide all the fields required in a matrimonial app, we’ve **augmented the response** to include three critical | Field      | Source              | Description                                                                 |
+Although the app uses the public API [randomuser.me] (https://randomuser.me/api/?results=10), which does not provide all the fields required in a matrimonial app, we’ve **augmented the response** to include three critical
+
+| Field      | Source              | Description                                                                 |
 |------------|---------------------|-----------------------------------------------------------------------------|
 | `education`| Generated           | Based on age — simulates real-world education levels like B.Tech, MBA       |
 | `religion` | Randomly generated  | Selected from a fixed list of religions (Hindu, Muslim, Christian, etc.)    |
@@ -68,10 +70,11 @@ val caste = generateFakeCaste(religion)
 val education = generateFakeEducation(age)
 
 ##❤️ Match Score Logic Description
-| Factor     | Weight              | Description                                                                 |
-|------------|---------------------|-----------------------------------------------------------------------------|
-| `Age`      | 50 pts              |Users closest to a target age (e.g., 28) score higher; each year difference reduces 5 pts     |
-| `City`     | 50 pts              | Users from the same city as the current user receive full city score    |
+
+| Factor     | Weight              | Description                                                                                  |
+|------------|---------------------|----------------------------------------------------------------------------------------------|
+| `Age`      | 50 pts              | Users closest to a target age (e.g., 28) score higher; each year difference reduces 5 pts    |
+| `City`     | 50 pts              | Users from the same city as the current user receive full city score                         |
 
 fun calculateMatchScore(age: Int, city: String): Int {
     val ageScore = (50 - abs(28 - age) * 5).coerceAtLeast(0)  // age proximity
@@ -84,7 +87,7 @@ fun calculateMatchScore(age: Int, city: String): Int {
 | Situation      | Strategy                                     |
 |----------------|----------------------------------------------|
 | `No internet`  | Data fetched from Room DB                    |
-| `Errors	`      | Handled via ViewModel → UI event channels    |
+| `Errors	`    | Handled via ViewModel → UI event channels    |
 | `No data`      | ViewStub fallback with no_data layout        |
 | `API failure`  | Snackbar with error message shown            |
 
