@@ -87,7 +87,7 @@ fun calculateMatchScore(age: Int, city: String): Int {
 | Situation      | Strategy                                     |
 |----------------|----------------------------------------------|
 | `No internet`  | Data fetched from Room DB                    |
-| `Errors	`    | Handled via ViewModel → UI event channels    |
+| `Errors`       | Handled via ViewModel → UI event channels    |
 | `No data`      | ViewStub fallback with no_data layout        |
 | `API failure`  | Snackbar with error message shown            |
 
